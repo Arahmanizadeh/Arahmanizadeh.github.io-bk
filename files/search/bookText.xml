@@ -1,0 +1,786 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Search><pages Count="12"><page Index="1"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+
+                          Mathematics in Geomatics Engineering: Application to Code Generation of GNNS Satellites
+
+                                                              1*
+                                                 Hassan Emami , Amir Bagheri  2
+
+                 1  Department of Geomatics, Marand Faculty of Engineering, University of Tabriz, Tabriz-Iran, h_emami@tabrizu.ac.ir,
+                                           h_emami@ut.ac.ir, ORCID: 0000-0002-0171-6487.
+
+                2  Department of Basic Sciences, Marand Faculty of Engineering, University of Tabriz, Tabriz-Iran, a_bageri@tabrizu.ac.ir
+              Abstract
+
+                     This work demonstrates a realistic application of mathematics in the Geomatics and engineering. Mathematics
+              and  engineering  work  together  as  they  are  right  hand  to  each  other  because  mathematics  is  the  bone  structure and
+              engineering is the physical body. The Global Navigation Satellite System (GNSS) uses of satellites to provide autonomous
+              Geo-spatial positioning. GNSS satellites continuously transmit signals at two or more frequencies. These signals contain
+              Pseudorandom noise (PRN) codes and navigation data to allow users to compute both the travel time from the satellite to
+              the receiver and the satellite coordinates at any time. The PRN codes are an important element of code division multiple
+              access (CDMA) based satellite navigation systems. Each satellite within a GNSS constellation has a unique PRN code that
+              it transmits as part of the C/A navigation message. This code allows any receiver to identify exactly which satellite(s) it is
+              receiving. The PRN codes have special mathematical properties which allow all satellites to transmit at the same frequency
+              without interfering with each other. These code also allow precise range measurements between satellite and user receivers.
+              PRN codes generator contains two shift registers known as gold polynomials. In this research, PRN codes generation of
+              GNNS Satellites using different polynomials is presented and discussed.
+
+                            Keywords: Global Navigation Satellite System, Applied mathematics, Geomatics, PRN codes.
+
+              1.  Introduction
+                    Mathematics is defined as the study of quantities and relations with the help of numbers and symbols. So, mathematics
+              and engineering work together as they are right hand to each other because engineering uses mathematical operations in the
+              calculation  of  their  projects.  Mathematics  is  the  mother  of  all  sciences  and  engineering.  Also,  we  can  strongly  say  that
+              mathematics is the bone structure and engineering is the physical body [1]. It is a powerful language, which we use to describe
+              models  in  engineering,  and  also  in  other  sciences.  Furthermore,  mathematics  in  engineering  is  focuses  on  applications  of
+              mathematics to science and engineering.  In contrast, Geomatics engineering is a specialized segment of engineering, focuses on
+              the monitoring, implementation, and maintenance of global geospatial information. Geospatial information is any information
+              that has positioned attributes associated with it. Geomatics engineering focuses on spatial information (i.e. information that has
+              a location). The location is the primary factor used to integrate a very wide range of data for spatial analysis and visualization.
+              The satellite navigation (SATNAV) systems are a branch of Geomatics engineering. These systems, uses of satellites to provide
+              autonomous Geo-spatial positioning. Today, there are numerous SATNAV systems operating around the world. Some are global
+              and others only provide service within a certain region. The term Global Navigation Satellite System (GNSS) is defined as the
+              collection of all SATNAV systems and their augmentations [2]. The GNSS systems are the U.S. Global Positioning System
+              (GPS), the Chinese BeiDou Navigation Satellite System (BDS), the European Galileo system, the Russian Federation GLObal
+              Navigation Satellite System (GLONASS),  India’s Navigation with Indian Constellation (NavIC), and Japan’s Quasi-Zenith
+              Satellite System (QZSS) [3, 4]. The GNSS includes constellations of Earth orbiting satellites that broadcast their locations in
+              space and time, networks of ground control stations, and the receivers that calculate ground positions by trilateration. Figure 1
+              shows four popular GNSS systems.
+
+                    Positioning by GNSS systems is based on a very simple principle. However, a very high level of technological skill is
+              required to make it work. The satellites send an electromagnetic signal and the user has a receiver equipped with a clock. The
+              position of the satellites        known at each instant of time. The position    of the receiver is unknown. We begin by considering
+
+
+
+
+
+
+                                                                                                              1]]></page><page Index="2"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              the ideal case: The satellite    1  sends a signal at time    1   and it is received at    at time    2 . The receiver   , using its clock which
+              measures    1  and the message sent by    1  at time    2 , obtains the time ∆   1 =    1 −    2 , which corresponds to the distance    1 :
+
+                                            = ‖       ‖ ∶          ∆     = ‖       ‖                                          (1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        Figure 1. Earth orbiting of four famous GNSS systems [5].
+
+                    The point    is thus located on the sphere ∑  of radius    1  centered on    1 . Likewise, the satellite    2  sends a signal, and
+                                                     1
+              by measuring the time interval∆   2 , this tells us that    lies on the sphere ∑  of radius    2  centered on    2 . The point    is thus on
+                                                                      2
+              the intersection of the spheres ∑  and∑ , which is a circle. With the satellite   3 , we obtain a third sphere ∑ , whose intersection
+                                      1     2                                                 3
+              with  ∑ ∩ ∑   gives just two points. One of these two points is therefore true location   .  In this ideal case, three satellites
+                    1    2
+              therefore suffice to locate   . However, to achieve this, the clock at    would have to have the same quality as those carried
+              aboard the satellites, and this would be impossible because such clocks are cumbersome and very expensive. A fourth satellite
+              is thus needed to make up for the inaccuracy of this clock. Figure 2 shows the basic principle of GNSS positioning. With known
+              position of four satellites            and signal travel distance     , the user position can be computed.
+                                                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         Figure 2. The basic principle of GNSS positioning [4, 6]
+                    A GNSS signal is transmitted from a satellite in order to measure the distance between the satellite and a receiver. Each
+              GNSS has its signal transmitted on specific radio frequencies. The GNSS satellites continuously transmit signals at two or more
+              frequencies in the L band [7]. These signals contain ranging codes and navigation data to allow users to compute both the travel
+
+                                                                                                             2]]></page><page Index="3"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              time from the satellite to the receiver and the satellite coordinates at any time. The main signal components, including: Carrier
+              wave: Radio frequency sinusoidal signal at a given frequency [7, 8]. Ranging code: Sequences of zeroes and ones which allow
+              the receiver to determine the travel time of the radio signal from the satellite to the receiver. They are called pseudo random
+              noise (PRN) sequences or PRN codes[9]. PRN codes have random noise characteristics, but are precisely defined. They are a
+              sequence of zeroes and ones, each zero or one referred to as a “chip”. Navigation data: A binary-coded message providing
+              information  on  the  satellite  ephemeris,  clock  bias  parameters,  almanac,  satellite  health  status  and  other  complementary
+              information. Figure 3 shows three main signal components of GNSS satellites.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      Figure 3. Three main signal components of GNSS satellites [10].
+
+                    The PRN codes have special mathematical properties which allow all satellites to transmit at the same frequency without
+              interfering with each other. These codes also allow precise range measurements between satellite and user receivers. Figure 4
+              shows a short repeating PRN code sample.
+
+
+
+
+
+
+
+
+
+
+                                           Figure 4. A short repeating PRN code sample [11].
+
+
+              2.  The Research Method
+
+                    GPS, is one of the famous four GNSS systems. The four global GNSS systems are – GPS (US), GLONASS (Russia),
+              Galileo (EU), BeiDou (China) [12]. To the all GNSS systems, the structure of the PRN code generation is conceptually similar,
+              while, the form of using mathematical equations in the production of these codes is slightly different. GPS is the first of a new
+              generation of GNSS systems. There are two different PRN code strings used by the GPS. They are the Coarse Acquisition Code
+              (C/A-code), sometimes called the “Civilian Code,” and the Precise, or Protected Code (P-Code) [6]. The C/A code is a particular
+              series of ones and zeroes, but the rate at which it is generated is 10 times slower than the P-Code. The C/A code rate is 1.023
+              million bits per second. Here, satellite identification is quite straightforward. Not only does each GPS satellite broadcast its own
+              completely unique 1023 bit C/A code, it repeats its C/A code every millisecond. The PRN code sequences are used as part of
+              the Code-division  multiple  access (CDMA) scheme  in  GPS  [13].  (CDMA  is  a channel  access  method used  by
+              various radio communication technologies). The PRN code don’t just use any random number. In fact, it’s not random, it’s a
+              kind of pseudo-random number. A signal that’s statistically random doesn’t repeat itself at any point in its sequence and so it has
+              very good autocorrelation properties. We also want the different codes for each satellite that are nearly orthogonal so the cross
+              correlation of one code will be very high even when many satellite codes are mixed in. This is the scheme used to create pseudo-
+              random sequences with all these properties for GPS and other GNSS satellites.
+
+
+
+                                                                                                             3]]></page><page Index="4"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+                    PRN or the C/A code generator contains two shift registers known as Gold polynomial 1 (G 1) and Gold polynomial 2 (G 2),
+              which  are  known  to  Gold  code  [14].  A Gold  code,  also  known  as Gold  sequence,  is  a  type  of  binary sequence,  used
+              in telecommunication (CDMA) and  GNSS  satellites.  Gold  codes  are  named  after  Robert  Gold. Gold  codes  have  bounded,
+              small cross-correlations within a set, which is useful when multiple devices are broadcasting in the same frequency range. A set
+                                          n
+                                                                          n
+              of Gold code sequences consists of 2  + 1 sequences each one with a period of 2  − 1. A set of Gold codes can be generated with
+                                                                          n
+              the following steps. Pick two maximum length sequences of the same length 2  − 1 such that their absolute cross-correlation is
+              less than or equal to 2 (n+2)/2 , where n is the size of the linear feedback shift register used to generate the maximum length sequence
+              (Gold '67). The set of the 2  − 1 exclusive-OR of the two sequences in their various phases together with the two maximum
+                                   n
+                                      n
+              length sequences form a set of 2  + 1 Gold code sequences. The highest absolute cross-correlation in this set of codes is 2 (n+2)/2  +
+              1 for even n and 2 (n+1)/2  + 1 for odd n [14]. The exclusive OR of two different Gold codes from the same set is another Gold code
+              in some phase. Within a set of Gold codes about half of the codes are balanced – the number of ones and zeroes differs by only
+              one. The sequence would have 512 ones and 511 zeroes, and these would appear to be distributed at random.
+
+              3.  The Gold codes and their properties
+                    The  Gold  codes  are  selected  as  spreading  sequences  for  the  GPS  signals  because  of  their  characteristics.  The  most
+              important characteristics of the C/A codes are their correlation properties [15]. A general PRN code can be seen as an infinite
+              sequence of independent, identically distributed, random binary variables taking one of two values (0 or 1) with equal probability.
+              The shift register can be described as Equation 2:
+
+                                             y(n) =   h   y(n − k),                                   (2)
+
+                    where m is the number of adders, and h    can take either of two values, 1 or 0, where 0 would indicate an absence of the
+              corresponding adder in the shift register. In polynomial form, the shift register can be expressed as Equation 3:
+
+
+                                             G(X) =   X                                                  (3)
+
+                    The essential qualities of the PRN sequences are defined by the correlation measures. Two infinite random sequences
+              should be uncorrelated. The closer a given PRN sequence comes in a truly random sequence, the better the PRN sequence is.
+              The correlation between two sequences x(k) and z(k) is described by the following Equation 4:
+
+                                                 1
+                                           R(n) =    y(k)  z(n + k)                                   (4)
+                                                 N
+
+                    Moreover, a random sequence would have very specific autocorrelation properties, i.e. a random code would correlate
+              with its own replica at only one point. The autocorrelation function can be found as a result of the multiplication of the sequence
+              and its own shifted version as Equation 5:
+
+                                                 1
+                                           R(n) =    y(k)  y(n + k)                                   (5)
+                                                 N
+
+                    where N is the sequence period. The PRN codes are generated by a deterministic system and have finite length. In general,
+              PRN codes are almost orthogonal to each other. In other words, they are almost uncorrelated. The orthogonal codes also have an
+              autocorrelation function, with a single correlation peak. Gold codes are not orthogonal, but they guarantee uniformly low cross-
+              correlation properties with other Gold codes. This property is very important for GPS signals, because all satellites transmit on
+              the same frequency. Gold codes are short, with a maximum length of 1023 chips. The GPS satellite uses a 10.23 MHz onboard
+              satellite clock to generate signals on all frequencies. The L1 C/A code is of 1 ms duration. The chip rate is therefore 1023
+              chips/ms.
+                     Furthermore, the Gold Codes are generated using a pair of shift registers (gold polynomials) with feedback. A shift
+              register is just a list of bits that has an input end and an output end. The GPS registers are length 10. We’ll start them out with
+              all 1’s, calculate the feedback, and then shift all the numbers over to the right. Gold codes are used the GPS C/A ranging codes
+              are Gold codes of period 1,023 [11]. Every 1023rd period, the shift registers are reset with all ones, making the code start over.
+                                                                                                             4]]></page><page Index="5"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              After code generation, the codes are combined with the navigation data through Gold polynomial 2 adders. The exclusive OR
+              operation is used on binary sequences represented by 0’s and 1’s, and its properties are shown in Table 1. If the binary sequences
+              were represented by the polar non-return-to-zero representation, i.e., 1’s and −1’s, ordinary multiplication could be used instead.
+              The corresponding properties of the multiplication with two binary non-return-to-zero sequences are shown in Table 1.
+                                     Table 1. Output of the exclusive OR operation and ordinary multiplication.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      This entire sequence of 1,023 chips is repeated 1,000 times each second, resulting in a “Chip-Rate” of 1.023 MHz or
+              one phase switch (chip) every one-millionth of a second. Each satellite carries its own unique code string. The C/A code is the
+              code used for the Standard Positioning Service (SPS).
+
+                     The C/A code  generator contains two  shift registers  known as G    and G   . These shift registers each have 10 cells
+              generating sequences of length 1023. The G    register always has a feedback configuration with the polynomial as Equation 6:
+
+
+                                             G   :   F(X) = 1 + X + X                         (6)
+                     This meaning that state 3 and state 10 are fed back to the input. Figure 5 show Gold polynomial (G1) shift register
+              generator configuration.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  Figure 5. Gold polynomial (G1) shift register generator configuration [14]
+
+                     Therefore, only the delay between the polynomials matters in this case, because the sequence repeats itself. The delay
+              is set by choosing specific tap outputs and combining them with exclusive OR operation, as shown in Table 1.  In the same way,
+              the G    register has the polynomial as Equation 7:
+
+
+
+
+
+                                        G   :   F(X) = 1 + X + X + X + X + X + X             (7)
+
+                                                                                                             5]]></page><page Index="6"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+                     The C/A codes are generated at the rate of 1023 chips/ms. The shift registers, which are used for code generation, can
+              be described by polynomials. The initial states of the polynomials and the phase between them define the code for a specific
+              satellite. The initial states for both polynomials are set to the same value, i.e. 1:
+                                                     (0) = {1, 1, 1, 1, 1, 1 ,1 ,1, 1,1 }
+                                            G    (0) = G
+                     Figure 6 show Gold polynomial (G 2) shift register generator configuration.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 Figure 6. Gold polynomial (G 2) shift register generator configuration [11, 16].
+
+                     The G 1 and G 2 registers are clocked at a 1.023 MHz rate. Thirty-six of the possible combinations over GPS satellites
+              can be selected. Figure 7 show the combinations of GPS satellites for C/A code generation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                     Figure 7. Combinations of GPS satellites for C/A code generation
+
+                     As Figure 7 shows, there is a unique combination for each satellite to generate the C/A code. For example, satellite
+              number 23 uses the combination of power 1 and power 3 of the second polynomial (G   ), and also for satellite number 16,
+              combinations 9 and 10 are used. A Boolean operator working on two variables that has the value of one if one but not both of
+              the variables has a value of one. To make different C/A codes for the satellites, the output of the two shift registers (G    and G   )
+
+                                                                                                             6]]></page><page Index="7"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              are combined in a very special manner. The G    register always supplies its output, but the G    register supplies two of its states
+              to a modulo-2 adder to generate its output. The selection of states for the modulo-2 adder is called the phase selection. Moreover,
+              a shift register is a set of one bit storage or memory cells. When a clock pulse is applied to the register, the content of each cell
+              shifts one bit to the right. The content of the last cell is “read out” as output. The special properties of such shift registers depend
+              on how information is “read in” to cell 1. For a tapped linear feedback shift register, the input to cell 1 is determined by the state
+              of the other cells. For example, the binary sum from cells 3 and 10 in a 10-cell register could be the input. If cells 3 and 10 have
+              different states (one is 1 and the other 0), a 1 will be read into cell 1 on the next clock pulse. If cells 3 and 10 have the same state,
+              0 will be read into cell 1. If we start with 1 in every cell, 12 clock pulses later the contents will be 0010001110. The next clock
+              pulse will take the 1 in cell 3 and the 0 in cell 10 and place their sum (1) in cell 1. Meanwhile, all other bits have shifted cell to
+              the right, and the 0 in cell 10 becomes the next bit in the output.
+                     The other G    polynomial has cells 2, 3, 6, 8, 9, and 10 are tapped and binary-added to get the new input to cell 1. In this
+              case, the output comes not from cell 10 but from a second set of taps. Various pairs of these second taps are binary-added. The
+              different pairs yield the same sequence with different delays or shifts. The delayed version of the G     sequence is binary-added
+              to the output of G   . There are actually 37 PRN C/A codes, but two of them (34 and 37) are identical. A subset of the first 32
+              codes are assigned to (nominally 24) satellites and recycled when old satellites die and new satellites are launched. Codes 33
+              through 37 are reserved for other uses, including ground transmitters. Each of the first 32 segments is associated with a different
+              satellite. The P code generation follows the same principles as the C/A code, except that 4 shift registers with 12 cells are used.
+              The code is combined with the binary navigation data using modulo-2 addition: If the code chip and the data bite are the same
+              (both are 0s or both are 1s), the result is 0; and if both are different, the result is 1. The composite binary signal is then impressed
+              upon the carrier in a process called modulation. The combination of two polynomials and the generation of C/A code are shown
+              together in Figure 8.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    Figure 8. C/A code generation [17].
+
+                     It  is  necessary  to  mention  PRN  sequences  or  C/A  codes  33  through  37  are  reversed  for  other  users  (e.g.  ground
+              transmitters). Let us take a quick look at two special properties of PRN sequences which values ∓1.  Frist. PRN sequences are
+              nearly orthogonal to each other: The sum to the term-by-term products of the two sequences, shifted arbitrarily relative to each
+              other, is nearly zero. For two GNSS satellites k and l , which are assigned unique PRN sequences C/A codes x ( )  and x (  )  as
+              Equation 8.
+
+
+
+
+                                                                                                             7]]></page><page Index="8"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+
+                                              ( )
+                                       x ( ) (i)  x (i + n) ≅ 0 ,     for all n, k  ≠ l                                   (8)
+
+                     Where x (∎) (1023 + m) = x (∎) (m). The left side of Equation 8 defines the cross-correletion function of the the two
+              sequenses for shift n . The orthooghonality of these codes allowes all GNSS satillaties to broadcast simultananeouslely at the
+              same frequency without interfreing with each other [17].
+                     The second important property is that a PRN seqence is nearly uncorrelated with itself, except forzero shift. for a C/A
+              code as Equation 9.
+
+                                               ( )
+                                       x ( ) (i)  x (i + n) ≅ 0 ,     for all |n| ≥ 1                                   (9)
+
+                     The left-hand side of Equation 9 defines the auto-correlation function of a sequence for shift n. The auto-correlation
+              function of a PRN is nearly zero except for zero shift where it has a sharp peak. The cross-correletion and auto-correlation
+              function of a PRN are discussed numerically example in next section.
+              4.  C/A PRN Code generation steps
+                 As mentioned earlier, the C/A code generator contains two shift registers known as G    and G   . These shift registers each have
+              10 cells  generating  sequences of length 1023. The G    register always has a feedback configuration with the polynomial as
+              Equation 6. Table 2 show entire sequence of 1,023 chips is repeated 1,000 times each second, resulting in a “Chip-Rate” of 1.023
+              MHz or one phase switch (chip) every one-millionth of a second. Every 1023rd period, the shift registers are reset with all ones,
+              making the code start over. After code generation, the codes are combined with the navigation data through Gold polynomial2
+              adders.
+
+                                                 Table 2. Code Generation from G 1
+               C/A PRN code                     G   :   F(X) = 1 + X + X                 result   Output of G 1
+
+
+                 Generation                                                                      fed input to G2
+               TFSR          1    2     3     4     5     6     7      8      9     10
+               Step_01       1    1     1     1     1     1     1      1      1      1                 1
+                                        1                                            1   1+1=0
+               Step_02       0    1     1     1     1     1     1      1      1      1                 1
+                                        1                                            1   1+1=0
+               Step_03       0    0     1     1     1     1     1      1      1      1                 1
+                                        1                                            1   1+1=0
+               Step_04       0    0     0     1     1     1     1      1      1     1                  1
+                                        0                                           1     0+1=1
+               Step_05       1    0     0     0     1     1     1      1      1     1                  1
+                                        0                                           1     0+1=1
+               Step_06       1    1     0     0     0     1     1      1      1     1                  1
+                                        0                                           1     0+1=1
+               Step_07       1    1     1     0     0     0     1      1      1     1                  1
+                                        1                                           1     1+1=0
+               Step_08       0    1     1     1     0     0     0      1      1     1                  1
+                                        1                                           1     1+1=0
+               Step_09       0    0     1     1     1     0     0      0      1     1                  1
+                                        1                                           1     1+1=0
+               Step_10       0    0     0     1     1     1     0      0      0     1                  1
+                                        0                                           1     0+1=1
+               Step_11       1    0     0     0     1     1     1      0      0     0                  1
+                                        0                                           0     0+0=0
+               Step_12       0    1     0     0     0     1     1      1      0     0                  0
+                                        0                                           0     0+0=0
+                                                                                                             8]]></page><page Index="9"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+               Step_n-1      … ….      …    …     …     …     …     …        …      …      …           0
+                                       …                                            …      …
+               Step_1023     … …       …    …     …     …     …     …        …      …      …           …
+
+                     Similarly, Table 3 shows how to combine the code from the G1 polynomial and generate PRN codes using G2 for all
+              satellites individually. This table shows only the first GPS satellite.
+                                     Table 3. Code Generation using G 2 only for SV # 01 and SV # 32
+
+            C/A PRN code               G   = 1 + X + X + X + X + X + X                Out to   result   Output of G2
+
+
+
+
+
+
+             for SV # 01                                                              next
+               TFSR       1    2    3     4     5     6     7       8      9     10
+
+              Code state   ١   ١    ١     ١     ١     ١     ١       ١      ١     ١              1
+              Step_01          1    1                 1             1      1     1            ∑ 6=0
+             For SV # 01       1                      1                                       1+1=0        0
+             For SV # 32                  1                                1                  1+1=0        0
+              Code state   ٠   ١    ١     ١     ١     ١     ١       ١      ١     ١              1
+              Step_02          ١    ١                 ١             ١      ١     ١            ∑ 6=0
+             For SV # 01       ١                      ١                                       1+1=0        0
+             For SV # 32                  1                                1                  1+1=0        0
+              Code state   ٠   ٠    ١     ١     ١     ١     ١       ١      ١     ١              1
+              Step_03          ٠    ١                 ١             ١      ١     ١            ∑ 5=١
+             For SV # 01       ٠                      ١                                       ٠+1=١        0
+             For SV # 32                  1                                1                  1+1=0        1
+              Code state   ١   ٠    ٠     ١     ١     ١     ١       ١      ١     ١              1
+              Step_04          0    0                 1             1      1     1            ∑ 4=0
+             For SV # 01       0                      1                                       ٠+1=١        1
+             For SV # 32                  1                                1                  1+1=0        0
+              Code state   0   ١    ٠     ٠     ١     ١     ١       ١      ١     ١              1
+              Step_05          1    0                 1             1      1     1            ∑ 5=١
+             For SV # 01       1                      1                                       1+1=0        1
+             For SV # 32                  0                                1                  0+1=1        0
+              Code state   1   0    ١     ٠     ٠     ١     ١       ١      ١     ١              1
+              Step_06          0    1                 1             1      1     1            ∑ 5=١
+             For SV # 01       0                      1                                       0+1=1        0
+             For SV # 32                  0                                1                  0+1=1        0
+              Code state   1   1    0     ١     ٠     ٠     ١       ١      ١     ١              1
+              Step_07          1    0                 0             1      1     1            ∑ 4=0
+             For SV # 01       1                      0                                       1+0=١        1
+             For SV # 32                  1                                1                  1+1=0        0
+              Code state   0   1    1     0     ١     ٠     ٠       ١      ١     ١              1
+              Step_08          1    1                 0             1      1     1            ∑ 5=١
+             For SV # 01       1                      0                                       1+0=١        0
+             For SV # 32                  0                                1                  0+1=1        0
+              Code state   1   0    1     1     0     ١     ٠       ٠      ١     ١              1
+              Step_09          0    1                 1             0      1     1            ∑ 4=0
+             For SV # 01       0                      1                                       0+1=١        1
+             For SV # 32                  1                                1                  1+1=0        0
+              Code state   0   1    0     1     1     0     ١       ٠      ٠     ١
+              Step_10          1    0                 0             0      0     1            ∑ 2=0
+             For SV # 01       1                      0                                       1+0=١        1
+             For SV # 32                  1                                0                  1+0=١        1
+             Step_1023    …  …      …    …     …     …     …     …        …      …              …          1
+                                                                                                             9]]></page><page Index="10"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+                     The  results  of  the  G 1  polynomial  code  are  fed  as  input  to  the  second  G 2  polynomial.  In  addition,  Figure  7  show
+              combinations of GPS satellites for C/A code generation that there is a unique combination for each satellite to generate the C/A
+              code. Figure 9 shows the output combinations of the G1 and G2 polynomials to generate a unique code for each satellite.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      Figure 9. The combinations of the G1 and G2 outputs to generate a unique C/A code for each GPS satellite.
+                                        Table 4. C/A PRN code Generation for SV#01 and SV#32
+
+
+                                                          (     ) ∩ (     )
+
+                                Output   Output G 2 for   Output G 2 for   C/A PRN code for   C/A PRN code for
+                                  G 1      SV#01         SV#32            SV#01              SV#32
+
+                     Step_01      1           0            0                1                  1
+
+                     Step_02      1           0            0                11                11
+
+
+                     Step_03      1           0            1               111                110
+
+
+                     Step_04      1           1            0               1110               1101
+
+                     Step_05      1           1            0              11100              11011
+
+
+                     Step_06      1           0            0              111001             110111
+
+                     Step_07      1           1            0              1110010           1101111
+
+
+                     Step_08      1           0            0             11100101           11011111
+
+                     Step_09      1           1            0             111001010         110111111
+
+
+                     Step_10      1           1            1            1110010100         1101111110
+
+                     Step_1023    1           0            1         1110010100…….01     1101111110…10
+
+                     As shown in Table 4, the C/A PRN codes are generated for the two satellites No. 1 and 32 GPS in ten steps, which are
+              different and unique to all satellites. These codes are generated and repeated in 1023 strings of PRN code per microsecond for
+              each GNSS satellite. Afterward, The GPS carrier’s waves could have been modulated in a variety of ways to carry the binary
+                                                                                                            10]]></page><page Index="11"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              codes, the 0s and 1s that are the codes. In any case, the most commonly used spread spectrum modulation technique is known
+              as binary phase shift keying (BPSK). This is the technique used to create the NAV Message, the P(Y) code and the C/A code.
+              The binary biphase modulation is the switching from 0 to 1 and from 1 to 0 accomplished by phase changes of 180º in the carrier
+              wave. PRN codes are a sequence of zeroes and ones, each zero or one referred to as a “chip”. These codes are combined and
+              modulated with the navigation data and sent to the ground.
+              5.  Gold code polynomial for other GNSS satellites systems
+
+                  In  the  all  GNSS  systems,  the  structure  of  PRN  codes  generation  is  conceptually  similar,  while,  the  form  of  using
+                  mathematical equations in the production of these codes is slightly different. Gold code generator polynomial for BeiDou
+                  satellites systems are as Equations 10 and 11 [12]:
+
+
+
+
+
+                                   (  ) = 1 +    +    +    +    +        +                                            (10)
+                                    
+
+
+
+
+
+
+
+                                   (  ) = 1 +    +    +    +    +    +    +    +                         (11)
+                                   
+                  With initial states
+                                                         (0) = {0,1,0,1,0,1,0,1,0,1,0}
+                                                     (0) =   
+                  The range codes are different from GPS even for the same taps, because the polynomials and their initial states are different.
+                  In similar, gold code generator polynomial for GLONASS satellites systems are as Equations 12 and 13 [6, 12]:
+
+
+
+                                                 (X) = 1 + X + X                      (12)
+                                               G
+
+
+                                                 (X) = 1 + X + X                      (13)
+                                               G
+
+              6.  Conclusion
+                 In  this  research,  not  only,  the  PRN  codes  generation  for  GNNS  satellites  using  different  polynomials  is  presented  and
+              discussed but also, this paper demonstrates a practical application of mathematics in the Geomatics and engineering. The GNSS
+              uses of satellites to provide autonomous Geo-spatial positioning. The GNSS satellites continuously transmit signals at two or
+              more frequencies. These signals contain pseudorandom noise (PRN) codes and navigation data to allow users to compute both
+              the  travel  time  from  the  satellite  to  the  receiver  and  the  satellite  coordinates  at  any  time.  Each  satellite  within  a  GNSS
+              constellation has a unique PRN code that it transmits as part of the C/A navigation message. This code allows any receiver to
+              identify exactly which satellite(s) it is receiving.
+                 The PRN codes have special mathematical properties which allow all satellites to transmit at the same frequency without
+              interfering with each other. These codes also allow precise range measurements between satellite and user receivers. PRN codes
+              generator contains two shift registers known as gold polynomials. To the all GNSS systems, the structure of the PRN code
+              generation using polynomials is conceptually similar, while, the form of using mathematical equations in the production of these
+              codes is slightly different. The PRN code generator contains two shift registers always has a feedback configuration with the
+              polynomials equations. They is set by choosing specific tap outputs and combining them with exclusive OR operation. The shift
+              registers, which are used for code generation, can be described by polynomials. The essential qualities of the PRN sequences are
+              defined by the correlation measures. Two infinite random sequences should be uncorrelated. The closer a given PRN sequence
+              comes in a truly random sequence, the better the PRN sequence is. In this research, PRN codes generation of GNNS Satellites
+              using  different  polynomials  is  presented  and  discussed.  Furthermore,  this  paper  demonstrates  a  realistic  application  of
+              mathematics in the Geomatics and engineering.
+
+                  References
+              [1]    D. Harris, L. Black, P. Hernandez-Martinez, B. Pepin, J. Williams, and w. t. T. Team, "Mathematics and its
+                     value  for  engineering  students:  what  are  the  implications  for  teaching?,"  International  Journal  of
+                     Mathematical Education in Science and Technology, vol. 46, pp. 321-336, 2015.
+              [2]   W. Lechner and S. Baumann, "Global navigation satellite systems," Computers and Electronics in Agriculture,
+                     vol. 25, pp. 67-85, 2000.
+              [3]    M. S. Grewal, A. P. Andrews, and C. G. Bartone, Global navigation satellite systems, inertial navigation, and
+                     integration: John Wiley & Sons, 2020.
+              [4]    L. Winternitz, "Introduction to GPS and other Global Navigation Satellite Systems," 2017.
+              [5]    C. Shi and N. Wei, "Satellite Navigation for Digital Earth," in Manual of Digital Earth, ed: Springer, Singapore,
+                     2020, pp. 125-160.
+                                                                                                            11]]></page><page Index="12"><![CDATA[Modern Geomatics Technologies and Applications
+
+
+              [6]    R. B. Langley, P. J. Teunissen, and O. Montenbruck, "Introduction to GNSS," in Springer handbook of global
+                     navigation satellite systems, ed: Springer, 2017, pp. 3-23.
+              [7]    C. J. Hegarty, "GNSS signals—An overview," in 2012 IEEE International Frequency Control Symposium
+                     Proceedings, 2012, pp. 1-7.
+              [8]    J. Awange, "Modernization of GNSS," in GNSS Environmental Sensing, ed: Springer, 2018, pp. 17-24.
+              [9]    S. Wallner, J.-A. Avila-Rodriguez, G. W. Hein, and J. J. Rushanan, "Galileo E1 OS and GPS L1C pseudo
+                     random noise codes-requirements, generation, optimization and comparison," in Proceedings of the 20th
+                     International Technical Meeting of the Satellite Division of The Institute of Navigation (ION GNSS 2007),
+                     2007, pp. 1549-1563.
+              [10]   S.  Thoelert,  J.  Furthner,  and  M.  Meurer,  "GNSS  survey-signal  quality  assessment  of  the  latest  GNSS
+                     satellites," in Proceedings of the 2013 International Technical Meeting of The Institute of Navigation, 2013,
+                     pp. 608-615.
+              [11]   C. J. Hegarty, "A simple model for GPS C/A-code self-interference," NAVIGATION, Journal of the Institute
+                     of Navigation, vol. 67, pp. 319-331, 2020.
+              [12]   J. Xie, H. Wang, P. Li, and Y. Meng, "Overview of Navigation Satellite Systems," in Satellite Navigation
+                     Systems and Technologies, ed: Springer, 2021, pp. 35-66.
+              [13]   S. Wen, W. Guan, Y. Wu, C. Yang, H. Chen, Z. Zhang, et al., "High precision three-dimensional iterative
+                     indoor  localization  algorithm  using  code  division  multiple  access  modulation  based  on  visible  light
+                     communication," Optical Engineering, vol. 55, p. 106105, 2016.
+              [14]   M. M. Hafidhi, E. Boutillon, and C. Winstead, "Reliable gold code generators for gps receivers," in 2015 IEEE
+                     58th International Midwest Symposium on Circuits and Systems (MWSCAS), 2015, pp. 1-4.
+              [15]   M. B. Mollah and M. R. Islam, "Comparative analysis of Gold Codes with PN codes using correlation property
+                     in CDMA technology," in 2012 International Conference on Computer Communication and Informatics, 2012,
+                     pp. 1-6.
+              [16]   H. N. Viet, K.-R. Kwon,  K.-S. Moon, and S.-H. Lee, "Simulation model  implementation of GPS IF signal
+                     generator," in 2017 International Conference on Information and Communications (ICIC), 2017, pp. 306-310.
+              [17]   B. P. Kumar and C. S. Paidimarry, "Development and analysis of C/A code generation of GPS receiver in
+                     FPGA and DSP," in 2014 Recent Advances in Engineering and Computational Sciences (RAECS), 2014,
+                     pp. 1-5.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                            12]]></page></pages></Search>
